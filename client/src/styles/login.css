@@ -1,0 +1,28 @@
+.mainDiv {
+    border-radius: 1rem;
+    box-shadow: 10px 10px 8px #888888;
+    border: #c1c1c1 solid 1px;;
+    display: block;
+    text-align: center;
+    padding: 2rem ;
+    margin: 2rem;
+}
+
+.mainDiv > * {
+    margin: 1rem;
+}
+
+.loginForm > * {
+    margin-top: 8px;
+}
+
+.emailInput {
+    width: 237px;
+}
+.passwordInput {
+    width: 237px;
+}
+
+.loginButton {
+    width: 27%;
+}
