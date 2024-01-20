@@ -21,11 +21,10 @@ export default function Navigation() {
     <header>
         <img className='logo' src={logo} alt='logo'/>
         <nav ref={navRef}>
-            {/* ... other nav items ... */}
-            {/* <a href="#login">Login</a> */}
-            <a href="#about">About Us</a>
-            <a href="#menu">Menu</a>
-            <a href="#contact">Contact Us</a>
+            <Link to='/' onClick={showNavBar}>Login</Link>
+            <Link to='/aboutUs' onClick={showNavBar}>About us</Link>
+            <Link to='/menu' onClick={showNavBar}>Menu</Link>
+            <Link to='/contactus' onClick={showNavBar}>Contact</Link>
             <button className='nav-btn nav-close-btn' onClick={showNavBar}>
                 <FaTimes />
             </button>

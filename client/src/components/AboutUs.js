@@ -1,7 +1,10 @@
 import React from 'react'
+import haleem from '../images/haleem.jpeg'
+import chickenKarahi from '../images/chickenKarahi.jpeg'
 import '../styles/aboutus.css'
 
 export default function AboutUs() {
+
   return (
     <>
       <div className='mainAboutUsDiv'>
@@ -10,7 +13,7 @@ export default function AboutUs() {
       </div>
         {/* <div>
           <img className='haleemImg' src={haleem} alt='haleem'/>
-          <img className='karahiImg' src={chickenKarahi} alt='karachi'/>
+          <img className='karahiImg' src={chickenKarahi} alt='karahi'/>
         </div> */}
     </>
     )

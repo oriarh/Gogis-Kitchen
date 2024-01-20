@@ -1,28 +1,127 @@
+/* General styles */
+body, input, button {
+    font-family: 'Arial', sans-serif;
+}
+
+/* Add a specific container for the login page to apply flexbox centering */
+#login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Use the full height of the viewport */
+    padding: 0;
+    margin: 0;
+}
+
+/* Main container styles specific to the login box */
 .mainDiv {
     border-radius: 1rem;
-    box-shadow: 10px 10px 8px #888888;
-    border: #c1c1c1 solid 1px;;
+    /* box-shadow: 10px 10px 8px #888888; */
+    border: #c1c1c1 solid 1px;
+    background-color:#FFFFFF; /* Light mode background */
+    padding: 2rem;
+    margin: auto; /* Centering horizontally */
+    width: 100%; /* Full width to contain within parent */
+    max-width: 500px; /* Maximum width to look good on all devices */
+    box-sizing: border-box; /* Include padding and border in the width */
+}
+
+/* Style adjustments for headings and form elements */
+h1 {
+    color: #333333;
+    margin-bottom: 2rem;
+}
+
+label {
     display: block;
-    text-align: center;
-    padding: 2rem ;
-    margin: 2rem;
+    margin-bottom: .5rem;
+    color: #333333;
 }
 
-.mainDiv > * {
-    margin: 1rem;
+input[type='email'],
+input[type='password'] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    background-color: ;
 }
 
-.loginForm > * {
-    margin-top: 8px;
+input[type='checkbox'] {
+    margin-right: .5rem;
 }
 
-.emailInput {
-    width: 237px;
-}
-.passwordInput {
-    width: 237px;
-}
-
+/* Button styles */
 .loginButton {
-    width: 27%;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #0056b3; /* A nice blue */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.loginButton:hover {
+    background-color: #003d82; /* Darker blue on hover */
+}
+
+/* Link styles */
+.forgotYourPassword a {
+    text-decoration: none;
+    color: #0056b3;
+    margin-top: .5rem;
+}
+
+.forgotYourPassword a:hover {
+    text-decoration: underline;
+}
+
+/* Toggle theme button */
+.toggle-theme h2 {
+    margin-bottom: 1rem;
+}
+
+.toggle-theme button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem; /* Bigger icon */
+}
+
+/* Theme switch icon color */
+.light .BsToggleOn,
+.dark .BsToggleOn {
+    color: #0056b3;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    .mainDiv {
+        width: 90%; /* Slightly less width on smaller screens for padding */
+        margin-top: 10px;
+        margin-bottom: 10px;
+        max-height: calc(100vh - 20px); /* Subtract the margin */
+    }
+}
+
+/* Dark theme styles */
+.dark {
+    background-color: #333333; /* Dark background for dark mode */
+    color: #f2f2f2;
+}
+
+.dark label {
+    color: #f2f2f2;
+}
+
+.dark .loginButton {
+    background-color: #f2f2f2;
+    color: #333333;
+}
+
+.dark .forgotYourPassword a {
+    color: #f2f2f2;
 }

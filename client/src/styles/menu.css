@@ -1,9 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Quicksand:wght@300;500;700&display=swap');
-
-body {
-    background-color: #e8e2d7;
-}
-
+/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Quicksand:wght@300;500;700&display=swap'); */
+/* 
 .menuHeaders {
     font-size: 120%;
     font-family: 'Open Sans', sans-serif;
@@ -14,7 +10,6 @@ body {
 
 .menuHeadersRow {
     background-color: #387672;
-    /* background-color: #38765969; */
 }
 
 .menuItems {
@@ -32,13 +27,13 @@ body {
 
 .menuItemsRow {
     background-color: #dad4cb;
-}
+} */
 
 /* .firstMenuItem {
     margin-top: 1%;
 } */
 
-.menuHeadersMeat {
+/* .menuHeadersMeat {
     margin: 3% -1% 1.5% -1%;
     border-radius: 1rem;
     background-color: #387672;
@@ -46,4 +41,73 @@ body {
     color: #e9ecef;
     font-family: 'Open Sans', sans-serif;
     font-weight: lighter;
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Quicksand:wght@300;500;700&display=swap');
+
+.menu-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.menu-headers {
+    background-color: #005f73;
+    color: #e9ecef;
+    font-weight: bold;
+    padding: 0.75rem 0;
+}
+
+.menu-category {
+    font-size: 1.25rem;
+    color: #005f73;
+    font-weight: 700;
+    padding: 1rem 0;
+    margin-top: 1rem;
+    background-color: #ccc;
+    border-radius: 8px;
+}
+
+.menu-item {
+    background-color: #64636321;
+    color: #333;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.menu-item:last-child {
+    border-bottom: none;
+}
+
+.menu-item > col {
+    padding: 0.5rem 0;
+}
+
+.menu-headers > col,
+.menu-item > col {
+    padding: 0.5rem 0;
+}
+
+.menu-headers > col:first-child,
+.menu-item > col:first-child {
+    border-right: 1px solid #ccc;
+}
+
+/* Hover effect for each menu item for interactivity */
+.menu-item:hover {
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+.menu-item > col,
+.menu-headers > col {
+padding: 0.75rem 0;
+}
+
+.menu-container {
+padding: 1rem;
+}
 }

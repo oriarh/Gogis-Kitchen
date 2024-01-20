@@ -18,13 +18,22 @@
     border: #c1c1c1 solid 1px;;
     line-height: 1.5;
     padding: 1rem; */
+    background-color: #FFFFFF;
     max-width: 800px; /* Set a maximum width for the box */
     width: 100%; /* Allow the width to adjust based on content */
     border-radius: 1rem;
-    box-shadow: 10px 10px 8px #888888;
+    /* box-shadow: 10px 10px 8px #888888; */
     border: #c1c1c1 solid 1px;
     line-height: 1.5;
     padding: 1rem;
     min-height: 300px; /* Set a minimum height to allow vertical expansion */
     margin: 0 auto; /* Center the box horizontally */
+}
+
+.haleemImg {
+    width: 40vh;
+}
+
+.karahiImg {
+    width: 40vh;
 }
