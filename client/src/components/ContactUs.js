@@ -6,6 +6,7 @@ import '../styles/contactus.css';
 
 export default function ContactUs() {
   return (
+    <>
     <div className='mainContactUsDiv'>
       <h1 className='contactUsHeading'>CONTACT US</h1>
       <Form>
@@ -33,5 +34,6 @@ export default function ContactUs() {
         </Form.Group>
       </Form>
     </div>
+    </>
   );
 }

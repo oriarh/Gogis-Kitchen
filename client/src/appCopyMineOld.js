@@ -1,33 +1,69 @@
-import React, {useEffect, useState} from 'react'
-import AboutUs from './components/AboutUs'
-import ContactUs from './components/ContactUs'
-import Menu from './components/Menu'
-import Navigation from './components/Navigation'
-import Login from './components/Login'
-import { Routes, Route, useLocation } from 'react-router-dom'
-import { ThemeProvider } from './utils/ThemeContext'
-import { useThemeContext,useUpdateThemeContext } from './utils/ThemeContext'
-import './app.css'
+    import React, { useEffect } from 'react';
+    import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+    import LoginPage from './pages/LoginPage';
+    import RegistrationPage from './pages/RegistrationPage';
+    import HomePage from './pages/HomePage';
+    import Checkout from './pages/Checkout';
+    import { CartProvider } from './context/CartContext';
+    import { MenuProvider } from './context/MenuContext'
+    import { useAuth } from './context/AuthContext';
+    import './app.css'
 
-export default function App() {
 
-  const theme = useThemeContext();
-  const toggleTheme = useUpdateThemeContext();
+    export default function App() {
+      const { isLoggedIn, setIsLoggedIn } = useAuth();
 
-  return (
-    // loggedin ? 
-    // <Login/> 
-    //:
-    <ThemeProvider>
-      <Navigation />
-      <div className={theme}>  
-        <Routes>
-          <Route path = '/' element = { <Login />} />
-          <Route path = '/AboutUs' element = { <AboutUs />} />
-          <Route path = '/contactus' element = { <ContactUs />} />
-          <Route path = '/menu' element = { <Menu />} />
-        </Routes>
-      </div>
-    </ThemeProvider>
-  )
-}
+      useEffect(() => {
+        const checkAuthStatus = async () => {
+          try {
+            const response = await fetch('http://localhost:4000/api/checkSession', {
+              credentials: 'include', // Necessary to include the session cookie in the request
+            });
+
+            const data = await response.json();
+            console.log(data);
+            console.log(isLoggedIn);
+
+            if (response.ok) {
+              setIsLoggedIn(data.isLoggedIn); // Update based on response from your backend
+              console.log(isLoggedIn);
+            } else {
+              setIsLoggedIn(false); // Set to false if the response is not ok
+            }
+          } catch (error) {
+            console.error('Error checking auth status:', error);
+            setIsLoggedIn(false); // Set to false if there is an error
+          }
+        };
+
+        checkAuthStatus();
+      }, [isLoggedIn]);
+      
+      // If not logged in, redirect to the login page
+      const router = createBrowserRouter([
+        {
+          path: '/',
+          element: isLoggedIn ? <HomePage /> : <LoginPage />,
+        },
+        {
+          path: '/register',
+          element: isLoggedIn ? <HomePage /> : <RegistrationPage />,
+        },
+        {
+          path: '/home',
+          element: isLoggedIn ? <HomePage /> : <LoginPage />,
+        },
+        {
+          path: '/checkout',
+          element: isLoggedIn ? <Checkout /> : <LoginPage />,
+        },
+      ]);
+
+      return (
+        <CartProvider>
+          <MenuProvider>
+            <RouterProvider router={router} />
+          </MenuProvider>
+        </CartProvider>
+      );
+    }

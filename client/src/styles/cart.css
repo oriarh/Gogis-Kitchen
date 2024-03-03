@@ -1,0 +1,104 @@
+.cart-container {
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 31vw; /* Adjust as needed */
+  max-height: 60vh;
+  position: fixed;
+  right: 20px;
+  top: 100px; /* Adjust so it does not overlap your navbar */
+  z-index: 1001; /* Higher than the navbar */
+  transition: 0.3s; /* Smooth transition for width changes */
+  overflow-y: auto;
+}
+
+.cart-item {
+  display: flex;
+  flex-direction: row; /* Stack items vertically */
+  justify-content: space-between;
+  margin-bottom: 1rem; /* Add some space between items */
+}
+
+.quantity-controls button {
+  background-color: #e0e0e0;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.quantity-controls span {
+  padding: 5px 10px;
+}
+
+.checkout-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.cart-summary {
+  display: flex;
+  flex-direction: column; /* Stack summary items vertically */
+  align-items: flex-start; /* Align summary items to the start */
+  margin-top: 1rem; /* Add space above the summary */
+}
+
+.cart-item span, .cart-item button {
+  margin-bottom: 0.5rem; /* Add some space between each span/button */
+}
+  
+.cart-header {
+  margin-bottom: 1rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .cart-container {
+    width: 40vw; /* Use more screen space on very small devices */
+    right: 5px; /* Less offset on the sides */
+    top: 60px; /* Adjust top position */
+    font-size: medium;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .cart-item {
+    flex-direction: column; /* Stack item details and controls vertically on small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-container {
+    width: 60vw; /* Use more screen space on very small devices */
+    right: 5px; /* Less offset on the sides */
+    top: 60px; /* Adjust top position */
+    max-height: 60vh;
+    overflow-y: auto;
+    font-size: small;
+  }
+
+  .cart-item {
+    flex-direction: column; /* Stack item details and controls vertically on small screens */
+  }
+
+  .quantity-controls button,
+  .quantity-controls span {
+    width: 20%;
+    margin-top: 5px; /* Add margin at the top for spacing */
+  }
+
+  .checkout-button {
+    font-size: 1em; /* Increase font size for better readability on small screens */
+  }
+
+  .cart-summary {
+    font-size: 0.9em; /* Adjust font size for summary on small screens */
+  }
+}

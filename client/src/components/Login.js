@@ -1,39 +1,82 @@
-import React from 'react'
-import { BsToggleOn } from 'react-icons/bs'
-import '../styles/login.css'
-import { useThemeContext, useUpdateThemeContext } from '../utils/ThemeContext'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useThemeContext, useUpdateThemeContext } from '../context/ThemeContext'
+import { useAuth } from '../context/AuthContext'
 
 export default function Login() {
   const theme = useThemeContext();
-  const toggleTheme = useUpdateThemeContext();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { isLoggedIn, setIsLoggedIn, setUserData } = useAuth();
+
+  // Handle input changes
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      console.log("before logging in", isLoggedIn)
+      const response = await fetch('http://localhost:4000/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+        credentials: 'include',
+      });
+
+      const data = await response.json();
+      const { userData } = data;
+      const { name, phone } = userData;
+
+      const settingUserData = {
+        name: name,
+        email: email,
+        phone: phone
+      };
+
+      if (response.ok) {
+        console.log("This is the name in login.js",settingUserData); // Process the success response
+        setIsLoggedIn(true);
+        setUserData(settingUserData);
+        console.log("after logging in", isLoggedIn)
+      } else {
+        console.error('Login failed:', data.message);
+        alert(`Login failed: ${data.message}`); // Show error message to the user
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+      alert('An error occurred. Please try again.'); // Show generic error message to the user
+    }
+  };
 
   return (
     <div id="login-container" className={`${theme}`}>
       <div className={`mainDiv`}>
-        <form className='loginForm'>
+        <form className='loginForm' onSubmit={handleSubmit}>
           <div>
             <label>EMAIL</label>
-            <input type='email' className='emailInput'/>
+            <input type='email' value={email} onChange={handleEmailChange} className='emailInput'/>
           </div>
           <div>
             <label>PASSWORD</label>
-            <input type='password' className='passwordInput'/>
+            <input type='password' value={password} onChange={handlePasswordChange} className='passwordInput'/>
           </div>
           <div className='rememberMe'>
             <input type='checkbox'/>
             <label>Remember Me</label>
           </div>
-          <button className='loginButton' onClick={(e)=> {e.preventDefault()}}>LOGIN</button>
+          <button type='submit' className='loginButton'>LOGIN</button>
           <div className='forgotYourPassword'>
             <a href='/'>Forgot your password</a><br/>
-            <a href='/'>Reset your password</a>
+            <a href='/'>Reset your password</a><br/>
+            <Link to="/register">Don't have an account? Register here!</Link>
           </div>
         </form>
-        {/* <div className='toggle-theme'>
-          <h2>Toggle Theme</h2>
-          <button onClick={toggleTheme}> <BsToggleOn /></button>
-        </div> */}
       </div>
     </div>
-  )
+  );
 }

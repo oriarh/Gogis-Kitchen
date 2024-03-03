@@ -29,13 +29,14 @@ header {
     right: 0; /* Align to the right of the viewport */
     z-index: 1000; /* Ensure it's above other content */
 }
+
 nav a {
     margin: 0 1rem;
     color: var(--textColor);
     text-decoration: none;
 }
 
-nav a:hover{
+nav a:hover {
      color: var(--secondaryColor);
 }
 
@@ -49,12 +50,6 @@ header .nav-btn {
     visibility: hidden;
     opacity: 0;
     font-size: 1.8rem;
-}
-
-header div,
-nav {
-	display: flex;
-	align-items: center;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -95,4 +90,48 @@ nav {
 .logo {
     margin-left: -20px;
     width: 79px
+}
+
+.logout-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 20px; /* Adjust as needed */
+}
+
+.logout-btn:hover {
+    background-color: #D32F2F; /* Darker shade for hover state */
+}
+
+.cart-icon {
+    font-size: 1.5rem; /* Adjust as needed */
+    cursor: pointer;
+    margin-right: 20px; /* Adjust as needed */
+}
+
+/* Flex container for navigation links, logout button, and cart icon */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Style for the cart count (if you want to display the number of items in the cart) */
+.cart-count {
+    background-color: #FFC107; /* Or any color that fits your design */
+    color: black;
+    border-radius: 50%;
+    padding: 2px 6px; /* Adjust as needed */
+    font-size: 0.8rem; /* Adjust as needed */
+    position: relative;
+    top: 5px;
+    right: 10px; /* Adjust as needed */
+    font-weight: bold;
+}
+
+.about-us {
+    margin-left: 135px;
 }

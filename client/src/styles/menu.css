@@ -1,48 +1,3 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Quicksand:wght@300;500;700&display=swap'); */
-/* 
-.menuHeaders {
-    font-size: 120%;
-    font-family: 'Open Sans', sans-serif;
-    color: #e9ecef;
-    padding: 2%;
-    font-weight: bold;
-}
-
-.menuHeadersRow {
-    background-color: #387672;
-}
-
-.menuItems {
-    font-size: 120%;
-    font-weight:lighter;
-    color: rgba(98, 96, 96, 0.923);
-}
-
-.menuItemsDetail {
-    font-size: 100%;
-    color:rgb(0 0 0 / 42%);
-    background-color: #938e87;
-    padding: 13px;
-}
-
-.menuItemsRow {
-    background-color: #dad4cb;
-} */
-
-/* .firstMenuItem {
-    margin-top: 1%;
-} */
-
-/* .menuHeadersMeat {
-    margin: 3% -1% 1.5% -1%;
-    border-radius: 1rem;
-    background-color: #387672;
-    border: 1px solid gray;
-    color: #e9ecef;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: lighter;
-} */
-
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Quicksand:wght@300;500;700&display=swap');
 
 .menu-container {
@@ -96,7 +51,7 @@
 
 /* Hover effect for each menu item for interactivity */
 .menu-item:hover {
-    background-color: #ccc;
+    background-color: #b4b9b4;
     cursor: pointer;
 }
 

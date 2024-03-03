@@ -1,234 +1,159 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useCart } from '../context/CartContext';
+import { useMenu } from '../context/MenuContext';
 import '../styles/menu.css';
 
 export default function Menu() {
+  const { groupedMenuItems, setGroupedMenuItems } = useMenu({});
+  const { dispatch, makeCartVisibility } = useCart();
+
+  useEffect(() => {
+    const fetchMenuItems = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/api/menu',  {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        });
+        const [data] = await response.json();
+
+        // Group items by name
+        const groupedItems = data.reduce((acc, item) => {
+          const { name, size_id, price, category } = item;
+
+          // If the item name isn't already a key in the accumulator, add it
+          if (!acc[name]) {
+            acc[name] = {
+              name,
+              prices: {},
+              category
+            };
+          }
+
+          // Add the price to the correct size_id key
+          acc[name].prices[size_id] = price;
+          return acc;
+        }, {});
+
+        setGroupedMenuItems(groupedItems);
+      } catch (error) {
+        console.error('Error fetching menu items:', error);
+      }
+    };
+
+    fetchMenuItems();
+  }, []);
+
+  // console.log(groupedMenuItems)
+
+  const addToCart = (item) => {
+    const { prices, ...itemWithoutPrices } = item;
+    console.log("Item in menu.js is: ", itemWithoutPrices)
+    // makeCartVisibility();
+    dispatch({
+      type: 'ADD_ITEM',
+      payload: itemWithoutPrices
+    });
+  };
+
 
   return (
     <Container fluid className="menu-container">
-        <Row className='menu-headers text-center'>
-          <Col xs={4}>DETAILS</Col>
-          <Col>TIFFIN</Col>
-          <Col>HALF TRAY</Col>
-          <Col>FULL TRAY</Col>
+      <Row className='menu-headers text-center'>
+        <Col xs={4}>DETAILS</Col>
+        <Col>TIFFIN</Col>
+        <Col>HALF TRAY</Col>
+        <Col>Full Tray</Col>
+      </Row>
+      <div className="menu-section">
+        <Row className='menu-category text-center'>
+          <Col>CHICKEN</Col>
         </Row>
-        <div className="menu-section">
-          <Row className='menu-category text-center'>
-            <Col>CHICKEN</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>KARAHI</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>GINGER (Boneless)</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>NIHARI</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>ALOO SALAN</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>ACHARI</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>KOFTA</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>HALEEM</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>BUTTER CHICKEN</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>CHARGA (WITH VEGGIES)</Col>
-            <Col>40 FOR A WHOLE CHICKEN</Col>
-          </Row>
-        </div>
-        <div className="menu-section">
-          <Row className='menu-category text-center'>
-            <Col>MUTTON</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>KARAHI</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>ALOO SALAN</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>ALOO QEEMA</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>ALOO MASALA</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>PAYA</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-        </div>
-        <div className="menu-section">
-          <Row className='menu-category text-center'>
-            <Col>BEEF</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>HALEEM</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>NIHARI</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>QEEMA</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-        </div>
-        <div className="menu-section">
-          <Row className='menu-category text-center'>
-            <Col>VEGETARIAN</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>KADHI PAKORA</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>MIX VEGETABLE</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>SAFAID CHANA SALAN</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>BHINDI MASALA</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>KALAY CAHANAY SALAN</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>SAFAID MAASH DAAL</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>ALOO PALAK</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>KHATTAY BAINGAN</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-          <Row className='menu-item text-center'>
-            <Col xs={4}>ALOO METHI</Col>
-            <Col>$30</Col>
-            <Col>$60</Col>
-            <Col>$120</Col>
-          </Row>
-        </div>
-      </Container>
+        {Object.values(groupedMenuItems).map((item, index) => (
+          item.category === "Chicken" ? (
+            <Row key={index} className='menu-item text-center'>
+              <Col xs={4}>{item.name}</Col>
+              <Col onClick={() => item.prices[1] && addToCart({ ...item, size: 'Tiffin', price: parseFloat(item.prices[1]) })}>
+                ${item.prices[1] ? parseFloat(item.prices[1]).toFixed() : 'N/A'}
+              </Col>
+              <Col onClick={() => item.prices[2] && addToCart({ ...item, size: 'Half Tray', price: parseFloat(item.prices[2]) })}>
+                ${item.prices[2] ? parseFloat(item.prices[2]).toFixed() : 'N/A'}
+              </Col>
+              <Col onClick={() => item.prices[3] && addToCart({ ...item, size: 'Full Tray', price: parseFloat(item.prices[3]) })}>
+                ${item.prices[3] ? parseFloat(item.prices[3]).toFixed() : 'N/A'}
+              </Col>
+            </Row>
+          ) : null
+        ))}
+      </div>
+      <div className="menu-section">
+        <Row className='menu-category text-center'>
+          <Col>MUTTON</Col>
+        </Row>
+        {Object.values(groupedMenuItems).map((item, index) => (
+          item.category === "Mutton" ? (
+            <Row key={index} className='menu-item text-center'>
+              <Col xs={4}>{item.name}</Col>
+              <Col onClick={() => item.prices[1] && addToCart({ ...item, size: 'Tiffin', price: parseFloat(item.prices[1]) })}>
+                ${item.prices[1] ? parseFloat(item.prices[1]).toFixed() : 'N/A'}
+              </Col>
+              <Col onClick={() => item.prices[2] && addToCart({ ...item, size: 'Half Tray', price: parseFloat(item.prices[2]) })}>
+                ${item.prices[2] ? parseFloat(item.prices[2]).toFixed() : 'N/A'}
+              </Col>
+              <Col onClick={() => item.prices[3] && addToCart({ ...item, size: 'Full Tray', price: parseFloat(item.prices[3]) })}>
+                ${item.prices[3] ? parseFloat(item.prices[3]).toFixed() : 'N/A'}
+              </Col>
+            </Row>
+          ) : null
+        ))}
+      </div>
+      <div className="menu-section">
+        <Row className='menu-category text-center'>
+          <Col>BEEF</Col>
+        </Row>
+        {Object.values(groupedMenuItems).map((item, index) => (
+          item.category === "Beef" ? (
+            <Row key={index} className='menu-item text-center'>
+              <Col xs={4}>{item.name}</Col>
+              <Col onClick={() => item.prices[1] && addToCart({ ...item, size: 'Tiffin', price: parseFloat(item.prices[1]) })}>
+                ${item.prices[1] ? parseFloat(item.prices[1]).toFixed() : 'N/A'}
+              </Col>
+              <Col onClick={() => item.prices[2] && addToCart({ ...item, size: 'Half Tray', price: parseFloat(item.prices[2]) })}>
+                ${item.prices[2] ? parseFloat(item.prices[2]).toFixed() : 'N/A'}
+              </Col>
+              <Col onClick={() => item.prices[3] && addToCart({ ...item, size: 'Full Tray', price: parseFloat(item.prices[3]) })}>
+                ${item.prices[3] ? parseFloat(item.prices[3]).toFixed() : 'N/A'}
+              </Col>
+            </Row>
+          ) : null
+        ))}
+      </div>
+      <div className="menu-section">
+        <Row className='menu-category text-center'>
+          <Col>VEGETARIAN</Col>
+        </Row>
+        {Object.values(groupedMenuItems).map((item, index) => (
+          item.category === "Vegetarian" ? (
+            <Row key={index} className='menu-item text-center'>
+              <Col xs={4}>{item.name}</Col>
+              <Col onClick={() => item.prices[1] && addToCart({ ...item, size: 'Tiffin', price: parseFloat(item.prices[1]) })}>
+                ${item.prices[1] ? parseFloat(item.prices[1]).toFixed() : 'N/A'}
+              </Col>
+              <Col onClick={() => item.prices[2] && addToCart({ ...item, size: 'Half Tray', price: parseFloat(item.prices[2]) })}>
+                ${item.prices[2] ? parseFloat(item.prices[2]).toFixed() : 'N/A'}
+              </Col>
+              <Col onClick={() => item.prices[3] && addToCart({ ...item, size: 'Full Tray', price: parseFloat(item.prices[3]) })}>
+                ${item.prices[3] ? parseFloat(item.prices[3]).toFixed() : 'N/A'}
+              </Col>
+            </Row>
+          ) : null
+        ))}
+      </div>
+    </Container>
   );
 }
-
-//React Carousal Code
-    // <Carousel>
-    //   <Carousel.Item>
-    //     <img
-    //       className="d-block foodImg"
-    //       src={haleem}
-    //       alt="First slide"
-    //     />
-    //     <Carousel.Caption>
-    //       <h3>HALEEM</h3>
-    //       <p>Order this delicious Haleem for $200</p>
-    //     </Carousel.Caption>
-    //   </Carousel.Item>
-    //   <Carousel.Item>
-    //     <img
-    //       className="d-block foodImg"
-    //       src={chickenKarahi}
-    //       alt="Second slide"
-    //     />
-
-    //     <Carousel.Caption>
-    //       <h3>Second slide label</h3>
-    //       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    //     </Carousel.Caption>
-    //   </Carousel.Item>
-    //   <Carousel.Item>
-    //     <img
-    //       className="d-block foodImg"
-    //       src={chickenKarahi}
-    //       alt="Third slide"
-    //     />
-
-    //     <Carousel.Caption>
-    //       <h3>Third slide label</h3>
-    //       <p>
-    //         Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-    //       </p>
-    //     </Carousel.Caption>
-    //   </Carousel.Item>
-    // </Carousel>

@@ -1,20 +1,24 @@
 import React from 'react'
-import haleem from '../images/haleem.jpeg'
-import chickenKarahi from '../images/chickenKarahi.jpeg'
+import { useCart } from '../context/CartContext';
+// import { isLoggedIn, useAuth } from '../context/AuthContext'
+// import haleem from '../images/haleem.jpeg'
+// import chickenKarahi from '../images/chickenKarahi.jpeg'
 import '../styles/aboutus.css'
 
 export default function AboutUs() {
+
+  const { state } = useCart();
 
   return (
     <>
       <div className='mainAboutUsDiv'>
         <h1 className='aboutUsHeading'>ABOUT US</h1>
-        <p className='aboutUsDetails'>Welcome to Gogi's Kitchen, a home-based cooking business dedicated to providing delicious and healthy meals for you and your family.<br></br><br></br> We believe that good food doesn't have to be complicated or expensive, and that's why we offer a range of homemade dishes made from locally sourced, fresh ingredients. Whether you're looking for weekly meal prep, catering for a special event, or just a delicious home-cooked meal without the hassle, we've got you covered.<br></br><br></br> Our passion for cooking and commitment to quality means that you can always expect the best from us. So sit back, relax, and let us take care of the cooking!</p>
+        <p className='aboutUsDetails'>Welcome to Gogi's Kitchen, a home-based cooking business dedicated to providing delicious and healthy meals for you and your family.
+        <br></br><br></br>
+        We believe that good food doesn't have to be complicated or expensive, and that's why we offer a range of homemade dishes made from locally sourced, fresh ingredients. Whether you're looking for weekly meal prep, catering for a special event, or just a delicious home-cooked meal without the hassle, we've got you covered.
+        <br></br><br></br>
+        Our passion for cooking and commitment to quality means that you can always expect the best from us. So sit back, relax, and let us take care of the cooking!</p>
       </div>
-        {/* <div>
-          <img className='haleemImg' src={haleem} alt='haleem'/>
-          <img className='karahiImg' src={chickenKarahi} alt='karahi'/>
-        </div> */}
     </>
     )
 }
