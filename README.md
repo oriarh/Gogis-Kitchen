@@ -25,7 +25,7 @@ MySQL<br>
 1. Clone the repository:
 git clone https://github.com/yourusername/gogis-kitchen.git<br>
 
-2.Navigate to the project directory:
+2. Navigate to the project directory:
 cd gogis-kitchen<br>
 
 3. Install dependencies:
