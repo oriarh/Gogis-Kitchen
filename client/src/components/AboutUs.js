@@ -1,14 +1,9 @@
 import React from 'react'
 import { useCart } from '../context/CartContext';
-// import { isLoggedIn, useAuth } from '../context/AuthContext'
-// import haleem from '../images/haleem.jpeg'
-// import chickenKarahi from '../images/chickenKarahi.jpeg'
 import '../styles/aboutus.css'
 
 export default function AboutUs() {
-
-  const { state } = useCart();
-
+  
   return (
     <>
       <div className='mainAboutUsDiv'>

@@ -4,10 +4,12 @@
     import RegistrationPage from './pages/RegistrationPage';
     import HomePage from './pages/HomePage';
     import Checkout from './pages/Checkout';
+    import Payment from './components/Payment';
+    import Completion from './components/Completion';
     import { CartProvider } from './context/CartContext';
     import { MenuProvider } from './context/MenuContext'
     import { useAuth } from './context/AuthContext';
-    import './app.css'
+    import './app.css'  
 
 
     export default function App() {
@@ -54,15 +56,19 @@
           element: isLoggedIn ? <HomePage /> : <LoginPage />,
         },
         {
-          path: '/checkout',
-          element: isLoggedIn ? <Checkout /> : <LoginPage />,
+          path: '/payment',
+          element: isLoggedIn ? <Payment /> : <LoginPage />,
         },
+        {
+          path: '/completion',
+          element: isLoggedIn ? <Completion /> : <LoginPage />,
+        }
       ]);
 
       return (
         <CartProvider>
           <MenuProvider>
-            <RouterProvider router={router} />
+              <RouterProvider router={router} />
           </MenuProvider>
         </CartProvider>
       );

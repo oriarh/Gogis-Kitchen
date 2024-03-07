@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart,toggleCartVisibility } from '../context/CartContext';
-import '../styles/cart.css'; // Make sure to create a corresponding CSS file
+import '../styles/cart.css'; // Corresponding CSS File
 
 const Cart = () => {
   const { state, dispatch, syncCartWithServer, toggleCartVisibility } = useCart();
@@ -12,9 +12,8 @@ const Cart = () => {
     console.log('handleSubmit is working')
     syncCartWithServer(state.items);
     toggleCartVisibility();
-    return navigate("/checkout");
+    return navigate("/payment");
   }
-
 
   // Function to handle removing items from the cart
   const handleRemoveFromCart = (item) => {

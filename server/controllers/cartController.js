@@ -2,10 +2,6 @@ const { json } = require('body-parser');
 const pool = require('../database');
 
 const cartSync = async (req, res) => {
-  //console.log(req);
-  // console.log("This is req.session in cartController: ",req.session);
-  // console.log("This is req.sessionID in cartController: ",req.sessionID);
-  // console.log("This is req.sessionu.userId in cartController: ",req.session.userID);
   const cartItems = req.body;
   console.log("These are the cart items: ", cartItems);
 
@@ -34,9 +30,8 @@ const cartSync = async (req, res) => {
       const itemId = itemRows[0].item_id;
 
       // Fetch the sizeId based on the item size (Tiffin, Half Tray, Full Tray)
-      // Assuming you have a mapping or table to translate size to size_id
       const [sizeRows] = await pool.query (
-          'SELECT size_id from sizes WHERE size_name = ?', [size] // Adjust the query according to your database schema
+          'SELECT size_id from sizes WHERE size_name = ?', [size]
       );
 
       if (sizeRows.length === 0) {

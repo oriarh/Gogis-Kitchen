@@ -9,7 +9,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const { isLoggedIn, setIsLoggedIn, setUserData } = useAuth();
 
-  // Handle input changes
+  // Handle input
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
@@ -17,6 +17,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    //Authenticating the user
     try {
       console.log("before logging in", isLoggedIn)
       const response = await fetch('http://localhost:4000/api/users/login', {

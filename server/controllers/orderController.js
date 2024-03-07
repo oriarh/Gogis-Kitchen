@@ -1,13 +1,15 @@
 const pool = require('../database');
 
 const placeOrder = async (req, res) => {
-  const { userID, items } = req.body; // Ensure items is an array of objects like [{ item_id, size_id, quantity }, ...]
-  let connection;
+  const { userID, items } = req.body;
 
   try {
-    // Start a database transaction
-    connection = await pool.getConnection();
-    await connection.beginTransaction();
+    const userId = req.session.userID;
+
+    if (!userId) {
+      console.log('Unauthorized')
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
 
     // Insert order into 'orders' table
     const [orderResult] = await connection.query(

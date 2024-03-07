@@ -6,11 +6,10 @@ const pool = require('./database');
 const userRoutes = require('./routes/userRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const menuRoutes = require('./routes/menuRoutes');
-const mysql = require('mysql2/promise');
+const stripeRoutes = require('./routes/stripeRoutes')
 const session = require('express-session');
-const cookieParser = require('cookie-parser');
 const MySQLStore = require('express-mysql-session')(session);
-const orderRoutes = require('./routes/orderRoutes')
+const orderRoutes = require('./routes/orderRoutes');
 
 // Create an instance of express to serve our end points
 const app = express();
@@ -29,10 +28,11 @@ app.use(cors(corsOptions));
 // body-parser to parse json bodies
 app.use(bodyParser.json());
 
+//Setting up a session store
 const sessionStore = new MySQLStore({}/* session store options */, pool);
 
 app.use(session({
-  secret: process.env.SESSION_SECRET, // The secret used to sign the session ID cookie, keep it in an environment variable
+  secret: process.env.SESSION_SECRET, // The secret used to sign the session ID cookie
   store: sessionStore,
   resave: false, // Don't save session if unmodified
   saveUninitialized: false, // Don't create session until something stored
@@ -48,7 +48,8 @@ app.use(session({
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/cart', cartRoutes); 
-app.use('/api/menu', menuRoutes); 
+app.use('/api/menu', menuRoutes);
+app.use('/api/stripe', stripeRoutes)
 
 // Route to check user's session status
 app.get('/api/checkSession', (req, res) => {
