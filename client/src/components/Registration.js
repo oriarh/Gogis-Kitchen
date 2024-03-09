@@ -61,6 +61,7 @@ export default function Registration() {
     <div id="login-container" className={`${theme}`}>
       <div className={`mainDiv`}>
         <form className='loginForm' onSubmit={handleSubmit}>
+          <h5 style={{margin:'10px auto'}}>Thankyou for taking the time to register</h5>
           <div>
             <label>Name</label>
             <input type='text' name='name' value={formData.name} onChange={handleInputChange} className='passwordInput'/>

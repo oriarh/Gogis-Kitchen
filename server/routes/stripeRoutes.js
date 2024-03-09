@@ -5,6 +5,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 // Send publishable key to the frontend
 router.get("/config", (req, res) => {
+  console.log("This is backeng strip config api: ");
     res.status(200).json({
       publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
     });
@@ -18,6 +19,8 @@ router.post("/create-payment-intent", async (req, res) => {
         amount: 1999,
         automatic_payment_methods: { enabled: true },
       });
+
+      console.log("This is backeng strip payment intent api: ")
   
       // Send publishable key and PaymentIntent details to client
       res.status(200).json({

@@ -72,9 +72,9 @@ export default function Login() {
           </div>
           <button type='submit' className='loginButton'>LOGIN</button>
           <div className='forgotYourPassword'>
-            <a href='/'>Forgot your password</a><br/>
-            <a href='/'>Reset your password</a><br/>
-            <Link to="/register">Don't have an account? Register here!</Link>
+            {/* <a href='/'>Forgot your password</a><br/> */}
+            {/* <a href='/'>Reset your password</a><br/> */}
+            <br></br><Link to="/register">Don't have an account? Register here!</Link>
           </div>
         </form>
       </div>

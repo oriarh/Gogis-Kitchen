@@ -8,35 +8,47 @@ function Payment(props) {
     const [clientSecret, setClientSecret] = useState(null);
 
     useEffect(async () => {
-        const response = await fetch('http://localhost:4000/api/stripe/config', {
-            method: "GET",
-            headers: {
-                'Content-Type':'application/json'
-            },
-            credentials: "include",
-        });
+        try {
+            const response = await fetch('http://localhost:4000/api/stripe/config', {
+                method: "GET",
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                credentials: "include",
+            });
 
-        const data = await response.json();
-        const { publishableKey } = data;
+            const data = await response.json();
+            const { publishableKey } = data;
 
-        setStripePromise(loadStripe(publishableKey))
+            console.log("Before setStripePromise: ")
+            setStripePromise(loadStripe(publishableKey))
+            console.log("After setStripePromise: ")
+        } catch (error) {
+            console.error('Error in Stripe Config:', error);
+        }
 
     }, [])
 
     useEffect(async () => {
-        const response = await fetch('http://localhost:4000/api/stripe/create-payment-intent', {
-            method: "POST",
-            headers: {
-                'Content-Type':'application/json'
-            },
-            body: JSON.stringify({}),
-            credentials: "include",
-        });
+        try {
+            const response = await fetch('http://localhost:4000/api/stripe/create-payment-intent', {
+                method: "POST",
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({}),
+                credentials: "include",
+            });
 
-        const data = await response.json();
-        const { clientSecret } = data;
+            const data = await response.json();
+            const { clientSecret } = data;
 
-        setClientSecret(clientSecret);
+            console.log("Before setClientSecret: ")
+            setClientSecret(clientSecret);
+            console.log("After setClientSecret: ")
+        } catch (error) {
+            console.error('Error in Stripe payment intent:', error);
+        }
 
     }, [])
 

@@ -9,7 +9,6 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    console.log('handleSubmit is working')
     syncCartWithServer(state.items);
     toggleCartVisibility();
     return navigate("/payment");

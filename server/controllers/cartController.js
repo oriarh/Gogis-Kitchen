@@ -3,7 +3,7 @@ const pool = require('../database');
 
 const cartSync = async (req, res) => {
   const cartItems = req.body;
-  console.log("These are the cart items: ", cartItems);
+  // console.log("These are the cart items: ", cartItems);
 
   try {
     const userId = req.session.userID;
