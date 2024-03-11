@@ -56,6 +56,10 @@
           element: isLoggedIn ? <HomePage /> : <LoginPage />,
         },
         {
+          path: '/checkout',
+          element: isLoggedIn ? <Checkout /> : <LoginPage />,
+        },
+        {
           path: '/payment',
           element: isLoggedIn ? <Payment /> : <LoginPage />,
         },

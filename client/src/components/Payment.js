@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js'
-import Checkout from '../pages/Checkout'
+import PlaceOrder from '../pages/PlaceOrder'
+import { useCart } from '../context/CartContext';
 
 function Payment(props) {
     const [stripePromise, setStripePromise] = useState(null);
     const [clientSecret, setClientSecret] = useState(null);
+    const { state } = useCart();
 
     useEffect(async () => {
         try {
@@ -36,16 +38,16 @@ function Payment(props) {
                 headers: {
                     'Content-Type':'application/json'
                 },
-                body: JSON.stringify({}),
+                body: JSON.stringify({
+                    finalAmount: state.totalAmount*100
+                }),
                 credentials: "include",
             });
 
             const data = await response.json();
             const { clientSecret } = data;
 
-            console.log("Before setClientSecret: ")
             setClientSecret(clientSecret);
-            console.log("After setClientSecret: ")
         } catch (error) {
             console.error('Error in Stripe payment intent:', error);
         }
@@ -57,7 +59,7 @@ function Payment(props) {
     <div>
         {stripePromise && clientSecret && (
             <Elements stripe={stripePromise} options={{clientSecret}}>
-                <Checkout />
+                <PlaceOrder />
             </Elements>
         )}
     </div>

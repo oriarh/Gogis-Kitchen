@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useThemeContext, useUpdateThemeContext } from '../context/ThemeContext'
 import { useAuth } from '../context/AuthContext'
+import { useCart } from '../context/CartContext';
 
 export default function Login() {
   const theme = useThemeContext();
@@ -40,10 +41,8 @@ export default function Login() {
       };
 
       if (response.ok) {
-        console.log("This is the name in login.js",settingUserData); // Process the success response
         setIsLoggedIn(true);
         setUserData(settingUserData);
-        console.log("after logging in", isLoggedIn)
       } else {
         console.error('Login failed:', data.message);
         alert(`Login failed: ${data.message}`); // Show error message to the user

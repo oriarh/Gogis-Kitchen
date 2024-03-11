@@ -49,12 +49,8 @@ export default function Menu() {
     fetchMenuItems();
   }, []);
 
-  // console.log(groupedMenuItems)
-
   const addToCart = (item) => {
     const { prices, ...itemWithoutPrices } = item;
-    console.log("Item in menu.js is: ", itemWithoutPrices)
-    // makeCartVisibility();
     dispatch({
       type: 'ADD_ITEM',
       payload: itemWithoutPrices

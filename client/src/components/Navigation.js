@@ -10,9 +10,9 @@ export default function Navigation() {
     const { setIsLoggedIn } = useAuth();
     const { toggleCartVisibility, isCartVisible, syncCartWithServer, state, getCartFromServer } = useCart();
 
-    // useEffect(() => {
-    //   getCartFromServer();
-    // },[])
+    useEffect(() => {
+      getCartFromServer();
+    },[])
 
     const logoutUser = async (e) => {
     

@@ -4,7 +4,6 @@ const pool = require('../database');
 const cartSync = async (req, res) => {
   const cartItems = req.body;
   // console.log("These are the cart items: ", cartItems);
-
   try {
     const userId = req.session.userID;
 
@@ -70,10 +69,69 @@ const fetchCartFromDb = async (req,res) => {
   } catch (error) {
     res.status(500).json({ message: 'Error fetching cart items', error: error });
   }
+}
 
+const saveOrder = async (req,res) => {
+  console.log("This is the payload received at the saveOrder backend:", req.body)
+  const userId = req.session.userID;
+  const { items, totalAmount } = req.body;
+
+  try {
+    // Start a database transaction
+    await pool.query('START TRANSACTION');
+
+    // Insert the new order
+    const [ orderResult ] = await pool.query(
+        'INSERT INTO orders (user_id, total, status) VALUES (?, ?, ?)',
+        [userId, totalAmount, 'pending']
+    );
+
+    console.log("This is the orderResult: ",orderResult)
+
+    const sizeId = 0;
+    const orderId = orderResult.insertId;
+
+    // Insert order details
+    for (const item of items) {
+      // Fetch the itemId
+      const [itemRows] = await pool.query(
+        'SELECT item_id from items WHERE name = ?', [item.name]
+      );
+      if (itemRows.length === 0) {
+          throw new Error(`Item not found: ${name}`);
+      }
+      const itemId = itemRows[0].item_id;
+
+      // Fetch the sizeId based on the item size (Tiffin, Half Tray, Full Tray)
+      const [sizeRows] = await pool.query (
+          'SELECT size_id from sizes WHERE size_name = ?', [item.size]
+      );
+
+      if (sizeRows.length === 0) {
+          throw new Error(`Size not found: ${size}`);
+      }
+      const sizeId = sizeRows[0].size_id;
+
+      await pool.query(
+          'INSERT INTO order_details (order_id, item_id, quantity, price, size_id) VALUES (?, ?, ?, ?, ?)',
+          [orderId, itemId, item.quantity, item.price, sizeId]
+      );
+    }
+
+    // Commit the transaction
+    await pool.query('COMMIT');
+
+    res.status(200).json({ message: 'Order created successfully', orderId: orderId });
+  } catch (error) {
+      // Rollback the transaction in case of error
+      await pool.query('ROLLBACK');
+      console.error(error);
+      res.status(500).json({ message: 'Error creating order' });
+  }
 }
   
   module.exports = {
     cartSync,
-    fetchCartFromDb
+    fetchCartFromDb,
+    saveOrder
   };

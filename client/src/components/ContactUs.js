@@ -8,9 +8,9 @@ export default function ContactUs() {
   return (
     <>
     <div className='mainContactUsDiv'>
-      <h1 className='contactUsHeading'>CONTACT US</h1>
+      <h1 className='contactUsHeading'>We'd love to hear from you!</h1>
       <Form>
-        <Row className='mb-3'>
+        {/* <Row className='mb-3'>
           <Col>
             <Form.Group controlId="formFirstName">
               <Form.Label>First Name</Form.Label>
@@ -27,9 +27,9 @@ export default function ContactUs() {
         <Form.Group className="mb-3" controlId="formEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" placeholder="name@example.com" />
-        </Form.Group>
+        </Form.Group> */}
         <Form.Group className="mb-3" controlId="formMessage">
-          <Form.Label>Message</Form.Label>
+          {/* <Form.Label>Message</Form.Label> */}
           <Form.Control as="textarea" rows={3} />
         </Form.Group>
       </Form>

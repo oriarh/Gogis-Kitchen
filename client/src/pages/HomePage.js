@@ -21,9 +21,9 @@ const HomePage = () => {
       <section id="menu">
         <Menu />
       </section>
-      <section id="contact">
+      {/* <section id="contact">
         <ContactUs />
-      </section>
+      </section> */}
     </>
   );
 };

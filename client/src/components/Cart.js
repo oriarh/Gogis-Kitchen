@@ -1,17 +1,19 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCart,toggleCartVisibility } from '../context/CartContext';
-import '../styles/cart.css'; // Corresponding CSS File
+import { useCart } from '../context/CartContext';
+import '../styles/cart.css';
 
 const Cart = () => {
+  //Importing the cartContext
   const { state, dispatch, syncCartWithServer, toggleCartVisibility } = useCart();
-  console.log("State in Cart.js is ", state);
+
+  //Use navigate to redirect at 
   const navigate = useNavigate();
 
   const handleSubmit = () => {
     syncCartWithServer(state.items);
     toggleCartVisibility();
-    return navigate("/payment");
+    return navigate("/checkout");
   }
 
   // Function to handle removing items from the cart
